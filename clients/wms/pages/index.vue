@@ -1,17 +1,24 @@
 <template>
   <div class="container">
-    <div>
-      wms
+    <div v-if="!$auth.loggedIn">
+      <nuxt-link to="/auth/login">ログイン</nuxt-link>
+    </div>
+    <div v-if="$auth.loggedIn">
+      <div class="row">
+        <div class="col col-sm-9">WMS</div>
+        <nuxt-link to="/auth/logout">ログアウト</nuxt-link>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-
 export default {
+  auth: false,
+  mounted() {
+    console.log(this.$auth)
+  }
 }
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

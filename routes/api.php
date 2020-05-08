@@ -13,7 +13,23 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::group(
+    [
+        'name' => 'api.v1',
+        'namespace' => 'V1',
+        'as' => 'api.',
+        'middleware' => ['jwt'],
+        'prefix' => 'v1',
+    ],
+    function () {
+        Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
+          Route::get('/getMe', 'UserController@getMe');
+        });
+        Route::group(
+            ['prefix' => 'organization', 'as' => 'organization.'],
+            function () {
+                Route::get('/getList', 'OrganizationController@getList');
+            }
+        );
+    }
+);

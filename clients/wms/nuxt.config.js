@@ -1,3 +1,5 @@
+import dotenv from 'dotenv'
+dotenv.config()
 export default {
   mode: 'spa',
   /*
@@ -15,6 +17,10 @@ export default {
       }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+  },
+  env: {
+    loginUrl: process.env.LOGIN_URL,
+    logoutUrl: process.env.LOGOUT_URL
   },
   /*
    ** Customize the progress-bar color
@@ -45,13 +51,36 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    // Doc: https://auth.nuxtjs.org/
+    '@nuxtjs/auth'
   ],
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
+  axios: {
+    baseURL: process.env.API_URL,
+    credentials: true
+  },
+  auth: {
+    redirect: {
+      login: '/auth/login',
+      logout: '/',
+      callback: '/auth/callback',
+      home: '/'
+    },
+    strategies: {
+      auth0: {
+        domain: process.env.AUTH0_DOMAIN,
+        client_id: process.env.AUTH0_CLIENT_ID,
+        audience: process.env.AUTH0_AUDIENCE
+      }
+    }
+  },
+  router: {
+    middleware: ['auth', 'user']
+  },
   /*
    ** Build configuration
    */

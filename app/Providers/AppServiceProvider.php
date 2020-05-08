@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
-use Auth0\Login\Contract\Auth0UserRepository as Auth0UserRepositoryContract;
-use Auth0\Login\Repository\Auth0UserRepository;
+use App\Models\User;
+use App\Observers\UserObserver;
+use App\Repositories\CustomUserRepository;
+use Auth0\Login\Contract\Auth0UserRepository;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Support\ServiceProvider;
 
@@ -15,12 +17,13 @@ class AppServiceProvider extends ServiceProvider
             $this->app->register(IdeHelperServiceProvider::class);
         }
         $this->app->bind(
-            Auth0UserRepositoryContract::class,
-            Auth0UserRepository::class
+            Auth0UserRepository::class,
+            CustomUserRepository::class
         );
     }
 
     public function boot()
     {
+        User::observe(UserObserver::class);
     }
 }
