@@ -172,6 +172,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
+        App\Providers\HelperServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
     ],
 
@@ -228,5 +229,9 @@ return [
         'Auth0' => Auth0\Login\Facade\Auth0::class,
 
         // application aliases
+        'OrganizationAuth' => App\Facades\OrganizationAuth::class,
+        // helpers
+        'EloquentHelper' => App\Facades\Helpers\EloquentHelper::class,
+        'StringHelper' => App\Facades\Helpers\StringHelper::class,
     ],
 ];

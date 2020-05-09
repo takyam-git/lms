@@ -10,9 +10,6 @@ class UserController extends Controller
     public function getMe()
     {
         $user = Auth::user();
-
-        \Log::debug($user);
-
         return $user
             ? UserResource::make($user)
             : response()->json(new stdClass());

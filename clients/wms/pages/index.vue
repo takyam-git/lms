@@ -14,10 +14,7 @@
 
 <script>
 export default {
-  auth: false,
-  mounted() {
-    console.log(this.$auth)
-  }
+  auth: false
 }
 </script>
 

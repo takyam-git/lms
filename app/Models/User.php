@@ -40,16 +40,21 @@ use Illuminate\Notifications\Notifiable;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User withoutTrashed()
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\UserOrganization[] $userOrganizations
+ * @property-read int|null $user_organizations_count
  */
 class User extends Authenticatable
 {
     use Notifiable;
     use SoftDeletes;
 
-    protected $fillable = ['name', 'email'];
-    protected $hidden = ['sub', 'remember_token'];
+    protected $keyType = 'string';
+    public $incrementing = false;
 
-    protected $casts = [];
+    public function userOrganizations()
+    {
+        return $this->hasMany(UserOrganization::class);
+    }
 
     public function isProfileLoaded(): bool
     {

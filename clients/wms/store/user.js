@@ -5,7 +5,7 @@ export const state = () => ({
 
 export const getters = {
   user: (state) => state.user,
-  organization: (state) => state.organization
+  organization: (state) => (state.user && state.user.organization) || null
 }
 
 export const mutations = {
@@ -20,8 +20,6 @@ export const mutations = {
 export const actions = {
   async fetch({ commit }) {
     const res = await this.$axios.get('/v1/user/getMe')
-    console.log(res)
-
-    // commit('user', user)
+    commit('user', res.data.data)
   }
 }

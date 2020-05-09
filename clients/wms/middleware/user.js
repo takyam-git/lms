@@ -1,9 +1,13 @@
-export default async ({ $auth, store }) => {
-  console.log($auth)
+export default async ({ $auth, store, redirect, route }) => {
+  if ($auth.loggedIn && !store.getters['user/user']) {
+    await store.dispatch('user/fetch')
+  }
   if (
     $auth.loggedIn &&
-    (!store.getters['user/organization'] || !store.getters['user/user'])
+    store.getters['user/user'] &&
+    !store.getters['user/organization'] &&
+    route.name !== 'organizations'
   ) {
-    await store.dispatch('user/fetch')
+    return redirect('/organizations')
   }
 }

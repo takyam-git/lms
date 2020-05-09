@@ -13,8 +13,8 @@ abstract class Model extends EloquentModel
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        if (!$this->getAttribute('uuid')) {
-            $this->setAttribute('uuid', Uuid::uuid4());
+        if (!$this->getAttribute('id')) {
+            $this->setAttribute('id', Uuid::uuid4());
         }
     }
 }

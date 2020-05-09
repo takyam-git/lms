@@ -23,12 +23,12 @@ Route::group(
     ],
     function () {
         Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
-          Route::get('/getMe', 'UserController@getMe');
+            Route::get('/getMe', 'UserController@getMe');
         });
         Route::group(
             ['prefix' => 'organization', 'as' => 'organization.'],
             function () {
-                Route::get('/getList', 'OrganizationController@getList');
+                Route::post('/createNew', 'OrganizationController@register');
             }
         );
     }

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Auth\OrganizationAuth;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -25,6 +26,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        $this->app->singleton(OrganizationAuth::class);
+        $this->app->alias(OrganizationAuth::class, 'organization_auth');
     }
 }
